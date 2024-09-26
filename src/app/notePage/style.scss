@@ -1,0 +1,84 @@
+@import '../_common.scss';
+
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap:20px;
+    position: relative;
+    min-height: 100vh;
+
+}
+
+
+.input{
+      display: flex;
+      flex-direction: column;
+      gap:10px;
+      align-items: end;
+
+      textarea{
+        padding: 10px;
+        font-size: 20px;
+      }
+
+      button{
+       @extend button;
+
+        
+        &:hover{
+           background-color: gray;
+           cursor: pointer;
+           color:white;
+        }
+      }
+}
+
+
+.NoteContainer{
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+    
+      ul {
+          
+         li{
+            border: 2px solid blue;
+            list-style: none;
+            font-size: 17px;
+            min-width: 120px;
+            
+            padding: 8px 10px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap:20px;
+
+            div{
+                display: flex;
+                gap:8px;
+                font-size: 15px;
+                cursor: pointer;
+
+                i:hover{
+                   color:red;
+                }
+            }
+         }
+      }
+}
+
+
+.updateContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap:10px;
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+}

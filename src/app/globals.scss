@@ -1,0 +1,28 @@
+
+@import "_common.scss";
+
+.Home{
+    background-color: beige;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap:9px;
+
+    h1{
+        font-family: sans-serif;
+
+    }
+
+    button{
+        @extend button;
+
+        &:hover{
+            background-color:black;
+            color:white;
+         }
+    }
+
+
+}
