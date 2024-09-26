@@ -88,7 +88,7 @@ const NotePage = () => {
 
         
         {noteList.map((item, index) => (
-          <ul>
+          <ul key={index}>
             <li>
               <span>{item}</span>
               <div>
