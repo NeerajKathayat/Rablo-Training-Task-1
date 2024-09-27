@@ -1,6 +1,6 @@
 import localFont from "next/font/local";
 import "./globals.scss";
-
+import { ReduxProvider } from "@/store/Provider";
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -24,7 +24,10 @@ export default function RootLayout({ children }) {
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
+        <ReduxProvider>
         {children}
+        </ReduxProvider>
+        
       </body>
     </html>
   );

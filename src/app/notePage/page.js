@@ -1,6 +1,8 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import "./style.scss";
+import { useDispatch,useSelector } from "react-redux";
+import { addNote , setNotes , deleteNote, editNote} from "@/store/noteSlice";
 
 const NotePage = () => {
   const [noteList, setNoteList] = useState([]);
@@ -9,14 +11,18 @@ const NotePage = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [index, setIndex] = useState(0);
 
+  const dispatch = useDispatch();
+  const NoteList = useSelector( (state)=>state.note)
+
   useEffect(() => {
     const storedNotes = localStorage.getItem("Notes");
     if (storedNotes) {
+      dispatch(setNotes(JSON.parse(storedNotes)))
       setNoteList(JSON.parse(storedNotes));
     }
-  }, [noteList]);
+  }, [dispatch]);
 
-  const addNote = () => {
+  const AddNote = () => {
     if (note) {
       let Notes = localStorage.getItem("Notes");
 
@@ -28,6 +34,9 @@ const NotePage = () => {
 
       Notes.push(note);
 
+      dispatch(addNote(note))
+
+
       localStorage.setItem("Notes", JSON.stringify(Notes));
 
       setNoteList([...noteList, note]);
@@ -35,17 +44,13 @@ const NotePage = () => {
     }
   };
 
-  const deleteNote = (index) => {
-    const filteredNote = noteList.filter((_, i) => i != index);
+  const DeleteNote = (index) => {
 
-    let storedNotes = JSON.parse(localStorage.getItem("Notes"));
-    storedNotes = storedNotes.filter((_, i) => i != index);
-    localStorage.setItem("Notes", JSON.stringify(storedNotes));
+   dispatch(deleteNote(index))
 
-    setNoteList(filteredNote);
   };
 
-  const editNote = (index) => {
+  const EditNote = (index) => {
     setIndex(index);
 
     const Edit = noteList.filter((_, i) => i == index);
@@ -56,13 +61,8 @@ const NotePage = () => {
   };
 
   const UpdateNote = () => {
-    let updatedNotes = [...noteList];
 
-    updatedNotes[index] = Editnote;
-
-    setNoteList(updatedNotes);
-
-    localStorage.setItem("Notes", JSON.stringify(updatedNotes));
+    dispatch(editNote({index:index,EditNote:Editnote}))
 
     setIsOpen(false);
   };
@@ -81,26 +81,26 @@ const NotePage = () => {
             setNote(e.target.value);
           }}
         ></textarea>
-        <button onClick={addNote}>Add</button>
+        <button onClick={AddNote}>Add</button>
       </div>
 
       <div className="NoteContainer">
 
         
-        {noteList.map((item, index) => (
+        {NoteList.map((item, index) => (
           <ul key={index}>
             <li>
               <span>{item}</span>
               <div>
                 <i
                   onClick={() => {
-                    deleteNote(index);
+                    DeleteNote(index);
                   }}
                   class="fa-solid fa-trash"
                 ></i>
                 <i
                   onClick={() => {
-                    editNote(index);
+                    EditNote(index);
                   }}
                   class="fa-solid fa-pen"
                 ></i>
